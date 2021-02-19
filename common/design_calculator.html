@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/northland_tools/scss/style.css">
+    <title>Design Hours Calculator</title>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="display-2">DESIGN HOURS CALCULATOR</h1>
+        </div>
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <hr>
+                    <p class="lead text-muted">Find out how many hours of drafting and design a job needs.</p>
+                    <hr>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main class="bg-light">
+        <div class="container">
+            <form>
+                <div class="row gx-5 px-5 py-3">
+                    <div class="col-lg-8">
+
+                        <div class="row g-3">
+
+                            <div class="col-sm-6">
+                                <label for="readerCount" class="form-label"># of CRs</label>
+                                <input type="number" class="form-control" id="readerCount" placeholder="" value=""
+                                    required>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="cameraCount" class="form-label"># of CAMs</label>
+                                <input type="number" class="form-control" id="cameraCount" placeholder="" value=""
+                                    required>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="alarmCount" class="form-label"># of ALs</label>
+                                <input type="number" class="form-control" id="alarmCount" placeholder="" value=""
+                                    required>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="panelCount" class="form-label"># of Panels</label>
+                                <input type="number" class="form-control" id="panelCount" placeholder="" value=""
+                                    required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="siteInfo" class="form-label">Site Information</label>
+                                <select class="form-select" id="siteInfo" required>
+                                    <option value=""></option>
+                                    <option>High-Rise Building</option>
+                                    <option>Large Site</option>
+                                    <option>Medium Site</option>
+                                    <option>Small Site</option>
+                                    <option>Addition</option>
+                                    <option>MAC</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="backgroundInfo" class="form-label">Background</label>
+                                <select class="form-select" id="backgroundInfo" required>
+                                    <option value=""></option>
+                                    <option>Existing CADs</option>
+                                    <option>New CADs</option>
+                                    <option>Clean PDF</option>
+                                    <option>PDF/Image</option>
+                                    <option>Redraw Layout</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="drawingInfo" class="form-label">Drawing Set</label>
+                                <select class="form-select" id="drawingInfo" required>
+                                    <option value=""></option>
+                                    <option>Full Set</option>
+                                    <option>DD Only</option>
+                                    <option>CD Only</option>
+                                    <option>RD Only</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="doorOperatorInfo">
+                            <label class="form-check-label" for="doorOperatorInfo">Door Operator</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="interlockInfo">
+                            <label class="form-check-label" for="interlockInfo">Interlock/Mantrap</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="intrusionInfo">
+                            <label class="form-check-label" for="intrusionInfo">Intrusion Integration</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="tailgateInfo">
+                            <label class="form-check-label" for="tailgateInfo">Tailgate Detector</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="turnstileInfo">
+                            <label class="form-check-label" for="turnstileInfo">Turnstile</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="newTechInfo">
+                            <label class="form-check-label" for="newTechInfo">New Technology Integration</label>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="my-3">
+                            <div class="form-check">
+                                <input id="existingCustomer" name="customer" type="radio" class="form-check-input"
+                                    required>
+                                <label class="form-check-label" for="existingCustomer">Existing Customer</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="newCustomer" name="customer" type="radio" class="form-check-input" required>
+                                <label class="form-check-label" for="newCustomer">New Customer</label>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    </div>
+
+                    <div class="col-md-12 col-lg-4 order-md-last">
+                        <span class="d-flex justify-content-between align-items-center mb-3">
+                            <p class="fs-4">Estimated Hours</p>
+                        </span>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <h6 class="">Design Hours:</h6>
+                                </div>
+                                <span id="designHours"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <h6 class="">Drafting Hours:</h6>
+                                </div>
+                                <span id="draftHours"></span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-danger col-md-12 my-3">Get Hours Reviewed</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p class="container text-end">Author: David Nguyen-Khoa</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="/northland_tools/js/design_calculator.js"></script>
+</body>
