@@ -8,7 +8,7 @@
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/northland_tools/scss/style.css">
+    <link rel="stylesheet" href="/scss/style.css">
     <title>Design Hours Calculator</title>
 </head>
 
@@ -34,100 +34,68 @@
             <form>
                 <div class="row gx-5 px-5 py-3">
                     <div class="col-lg-8">
-
                         <div class="row g-3">
-
                             <div class="col-sm-6">
                                 <label for="readerCount" class="form-label"># of CRs</label>
-                                <input type="number" class="form-control" id="readerCount" placeholder="" value=""
-                                    required>
+                                <input type="number" class="form-control calcOnUpdate deviceCounts" id="readerCount"
+                                    placeholder="" value="" required>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="cameraCount" class="form-label"># of CAMs</label>
-                                <input type="number" class="form-control" id="cameraCount" placeholder="" value=""
-                                    required>
+                                <input type="number" class="form-control calcOnUpdate deviceCounts" id="cameraCount"
+                                    placeholder="" value="" required>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="alarmCount" class="form-label"># of ALs</label>
-                                <input type="number" class="form-control" id="alarmCount" placeholder="" value=""
-                                    required>
+                                <input type="number" class="form-control calcOnUpdate deviceCounts" id="alarmCount"
+                                    placeholder="" value="" required>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="panelCount" class="form-label"># of Panels</label>
-                                <input type="number" class="form-control" id="panelCount" placeholder="" value=""
-                                    required>
+                                <input type="number" class="form-control calcOnUpdate deviceCounts" id="panelCount"
+                                    placeholder="" value="" required>
                             </div>
 
                             <div class="col-md-4">
                                 <label for="siteInfo" class="form-label">Site Information</label>
-                                <select class="form-select" id="siteInfo" required>
+                                <select class="form-select dropdownMenu calcOnUpdate" id="siteInfo" required>
                                     <option value=""></option>
+                                    <!-- Options are created from Javascript (form_info.js) -->
                                 </select>
                             </div>
 
                             <div class="col-md-4">
                                 <label for="backgroundInfo" class="form-label">Background</label>
-                                <select class="form-select" id="backgroundInfo" required>
+                                <select class="form-select dropdownMenu calcOnUpdate" id="backgroundInfo" required>
                                     <option value=""></option>
+                                    <!-- Options are created from Javascript (form_info.js) -->
                                 </select>
                             </div>
 
                             <div class="col-md-4">
                                 <label for="drawingInfo" class="form-label">Drawing Set</label>
-                                <select class="form-select" id="drawingInfo" required>
+                                <select class="form-select dropdownMenu calcOnUpdate" id="drawingInfo" required>
                                     <option value=""></option>
+                                    <!-- Options are created from Javascript (form_info.js) -->
                                 </select>
                             </div>
                         </div>
 
                         <hr class="my-4">
 
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="doorOperatorInfo">
-                            <label class="form-check-label" for="doorOperatorInfo">Door Operator</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="interlockInfo">
-                            <label class="form-check-label" for="interlockInfo">Interlock/Mantrap</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="intrusionInfo">
-                            <label class="form-check-label" for="intrusionInfo">Intrusion Integration</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="tailgateInfo">
-                            <label class="form-check-label" for="tailgateInfo">Tailgate Detector</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="turnstileInfo">
-                            <label class="form-check-label" for="turnstileInfo">Turnstile</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="newTechInfo">
-                            <label class="form-check-label" for="newTechInfo">New Technology Integration</label>
+                        <div class="calcOnUpdate" id="checkboxList">
+                            <!-- checkbox items are created from Javascript (form_info.js) -->
                         </div>
 
                         <hr class="my-4">
 
-                        <div class="my-3">
-                            <div class="form-check">
-                                <input id="existingCustomer" name="customer" type="radio" class="form-check-input"
-                                    required>
-                                <label class="form-check-label" for="existingCustomer">Existing Customer</label>
-                            </div>
-                            <div class="form-check">
-                                <input id="newCustomer" name="customer" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="newCustomer">New Customer</label>
-                            </div>
+                        <div class="calcOnUpdate" id="radioList">
+                            <!-- radio button items are created from Javascript (form_info.js) -->
                         </div>
+
                         <hr class="my-4">
                     </div>
 
@@ -140,13 +108,13 @@
                                 <div>
                                     <h6 class="">Design Hours:</h6>
                                 </div>
-                                <span id="designHours"></span>
+                                <span class="calculatedHours" id="designHours"></span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <div>
                                     <h6 class="">Drafting Hours:</h6>
                                 </div>
-                                <span id="draftHours"></span>
+                                <span class="calculatedHours" id="draftHours"></span>
                             </li>
                         </ul>
                         <button class="btn btn-danger col-md-12 my-3">Get Hours Reviewed</button>
@@ -163,5 +131,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
-    <script src="/northland_tools/js/design_calculator.js"></script>
+    <script type="module" src="/js/design_calculator/design_calculator.js"></script>
 </body>
