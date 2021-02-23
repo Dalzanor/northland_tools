@@ -1,6 +1,6 @@
 import { sites, backgrounds, drawings, specialDevices, customers, dropdowns } from "./form_info.js";
 
-// Adds the site choices to the Site Information dropdown
+// Adds all items within arrays from imported dropsdowns[] to the html form as an option
 for (let i = 0; i < dropdowns.length; i++) {
     for (let j = 0; j < dropdowns[i].length; j++) {
         let opt = document.createElement('option');
@@ -10,7 +10,7 @@ for (let i = 0; i < dropdowns.length; i++) {
     }
 }
 
-// Creates checkbox form items of special devices for the checkbox list
+// Creates checkbox form items from imported specialDevices[] for the checkbox list
 for (let i = 0; i < specialDevices.length; i++) {
     const div = document.createElement('div');
     div.className = 'form-check';
@@ -27,7 +27,7 @@ for (let i = 0; i < specialDevices.length; i++) {
     document.getElementById('checkboxList').appendChild(div);
 }
 
-// Creates radio buttons of customers for the radio button list
+// Creates radio buttons from imported customers[] for the radio button list
 for (let i = 0; i < customers.length; i++) {
     const div = document.createElement('div');
     div.className = 'form-check';
@@ -45,15 +45,20 @@ for (let i = 0; i < customers.length; i++) {
     document.getElementById('radioList').appendChild(div);
 }
 
+//
+// All calculation code below. Needs to be cleaned up before deployment.
+//
+
 // Run the calculateHours on all elements with class "calcOnUpdate"
 for (let i = 0; i < document.getElementsByClassName('calcOnUpdate').length; i++) {
     document.getElementsByClassName('calcOnUpdate')[i].onchange = () => {
         document.getElementById('designHours').textContent = Math.ceil(hoursFromSpecialDesign() * hoursFromDropdownMult() + hoursFromFloorsDesign());
-        document.getElementById('draftHours').textContent = Math.round((hoursFromDevices() + hoursFromSpecialDraft() + hoursFromDropdownDraft()) * customerType() * 2) / 2;
+        document.getElementById('draftHours').textContent = Math.round((hoursFromDevices() + hoursFromSpecialDraft() + hoursFromDropdownDraft()) * customerType());
     }
 }
 
 function hoursFromDevices() {
+    let draftTime = 0;
     const deviceCounts = document.getElementsByClassName('deviceCounts');
     for (let i = 0; i < deviceCounts.length; i++) {
         if (deviceCounts[i].id == 'readerCount') {
@@ -70,9 +75,8 @@ function hoursFromDevices() {
         }
     }
 
-    let draftTime = 0;
     if (readerCount / 16 > panelCount) {
-        draftTime += (Math.ceil(readerCount / 16));
+        draftTime += Math.ceil(readerCount / 16);
     }
     else {
         draftTime += Math.round(panelCount);
@@ -80,7 +84,7 @@ function hoursFromDevices() {
     if ((Math.ceil(alarmCount / 24) - Math.round(panelCount)) > 0) {
         draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount));
     }
-    draftTime += (Math.ceil(cameraCount / 24) / 2);
+    draftTime += Math.ceil(cameraCount / 24) / 2;
     draftTime += Math.round((getValue(document.getElementById('floorsInfo').value) * multiplierFromBackground()) * 0.75);
     return draftTime;
 }
@@ -149,9 +153,8 @@ function customerType() {
 }
 
 function hoursFromFloorsDesign() {
-    let x = document.getElementById('readerCount').value;
-    let y = getValue(x);
-    return Math.ceil(document.getElementById('floorsInfo').value / 3) + Math.floor(y / 36);
+    let readerCount = getValue(document.getElementById('readerCount').value);
+    return Math.ceil(document.getElementById('floorsInfo').value / 3) + Math.floor(readerCount / 36);
 }
 
 function multiplierFromBackground() {
