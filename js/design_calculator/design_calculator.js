@@ -48,7 +48,7 @@ for (let i = 0; i < customers.length; i++) {
 // Run the calculateHours on all elements with class "calcOnUpdate"
 for (let i = 0; i < document.getElementsByClassName('calcOnUpdate').length; i++) {
     document.getElementsByClassName('calcOnUpdate')[i].onchange = () => {
-        document.getElementById('designHours').textContent = Math.ceil(hoursFromSpecialDesign() * hoursFromDropdownMult());
+        document.getElementById('designHours').textContent = Math.ceil(hoursFromSpecialDesign() * hoursFromDropdownMult() + hoursFromFloorsDesign());
         document.getElementById('draftHours').textContent = Math.round((hoursFromDevices() + hoursFromSpecialDraft() + hoursFromDropdownDraft()) * customerType() * 2) / 2;
     }
 }
@@ -81,6 +81,7 @@ function hoursFromDevices() {
         draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount));
     }
     draftTime += (Math.ceil(cameraCount / 24) / 2);
+    draftTime += Math.round(getValue(document.getElementById('floorsInfo').value));
     return draftTime;
 }
 
@@ -145,4 +146,10 @@ function customerType() {
         }
     }
     return multiplier;
+}
+
+function hoursFromFloorsDesign() {
+    let x = document.getElementById('readerCount').value;
+    let y = getValue(x);
+    return Math.ceil(document.getElementById('floorsInfo').value / 3) + Math.floor(y / 36);
 }
