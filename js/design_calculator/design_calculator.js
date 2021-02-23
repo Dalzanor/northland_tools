@@ -81,7 +81,7 @@ function hoursFromDevices() {
         draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount));
     }
     draftTime += (Math.ceil(cameraCount / 24) / 2);
-    draftTime += Math.round(getValue(document.getElementById('floorsInfo').value) * 0.75);
+    draftTime += Math.round((getValue(document.getElementById('floorsInfo').value) * multiplierFromBackground()) * 0.75);
     return draftTime;
 }
 
@@ -152,4 +152,13 @@ function hoursFromFloorsDesign() {
     let x = document.getElementById('readerCount').value;
     let y = getValue(x);
     return Math.ceil(document.getElementById('floorsInfo').value / 3) + Math.floor(y / 36);
+}
+
+function multiplierFromBackground() {
+    for (let i = 0; i < backgrounds.length; i++) {
+        if (document.getElementById('backgroundInfo').value == backgrounds[i].name) {
+            return backgrounds[i].draftMultiplier;
+        }
+    }
+    return 1;
 }
