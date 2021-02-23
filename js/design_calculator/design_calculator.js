@@ -81,7 +81,7 @@ function hoursFromDevices() {
         draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount));
     }
     draftTime += (Math.ceil(cameraCount / 24) / 2);
-    draftTime += Math.round(getValue(document.getElementById('floorsInfo').value));
+    draftTime += Math.round(getValue(document.getElementById('floorsInfo').value) * 0.75);
     return draftTime;
 }
 
