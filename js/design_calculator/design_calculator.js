@@ -1,6 +1,6 @@
 import { sites, backgrounds, drawings, specialDevices, customers, dropdowns } from "./form_info.js";
 
-// Adds all items within arrays from imported dropsdowns[] to the html form as an option
+// // Adds all items within arrays from imported dropsdowns[] to the html form as an option
 for (let i = 0; i < dropdowns.length; i++) {
     for (let j = 0; j < dropdowns[i].length; j++) {
         let opt = document.createElement('option');
@@ -11,34 +11,34 @@ for (let i = 0; i < dropdowns.length; i++) {
 }
 
 // Creates checkbox form items from imported specialDevices[] for the checkbox list
-for (let i = 0; i < specialDevices.length; i++) {
+for (let devices of specialDevices) {
     const div = document.createElement('div');
     div.className = 'form-check';
     const label = document.createElement('label');
     label.className = 'form-check-label';
-    label.htmlFor = specialDevices[i].id;
-    label.innerHTML = specialDevices[i].name;
+    label.htmlFor = devices.id;
+    label.innerHTML = devices.name;
     const input = document.createElement('input');
     input.className = 'form-check-input  checkboxDevice';
     input.type = 'checkbox';
-    input.id = specialDevices[i].id;
+    input.id = devices.id;
     div.appendChild(label);
     div.appendChild(input);
     document.getElementById('checkboxList').appendChild(div);
 }
 
 // Creates radio buttons from imported customers[] for the radio button list
-for (let i = 0; i < customers.length; i++) {
+for (let customer of customers) {
     const div = document.createElement('div');
     div.className = 'form-check';
     const label = document.createElement('label');
     label.className = 'form-check-label';
-    label.htmlFor = customers[i].id;
-    label.innerHTML = customers[i].name;
+    label.htmlFor = customer.id;
+    label.innerHTML = customer.name;
     const input = document.createElement('input');
     input.className = 'form-check-input customers';
     input.type = 'radio';
-    input.id = customers[i].id;
+    input.id = customer.id;
     input.name = 'customer';
     div.appendChild(label);
     div.appendChild(input);
@@ -59,22 +59,22 @@ for (let i = 0; i < document.getElementsByClassName('calcOnUpdate').length; i++)
 
 function hoursFromDevices() {
     let draftTime = 0;
+    let readerCount, cameraCount, alarmCount, panelCount;
     const deviceCounts = document.getElementsByClassName('deviceCounts');
-    for (let i = 0; i < deviceCounts.length; i++) {
-        if (deviceCounts[i].id == 'readerCount') {
-            var readerCount = getValue(deviceCounts[i].value);
+    for (let device of deviceCounts) {
+        if (device.id == 'readerCount') {
+            readerCount = getValue(device.value);
         }
-        else if (deviceCounts[i].id == 'cameraCount') {
-            var cameraCount = getValue(deviceCounts[i].value);
+        else if (device.id == 'cameraCount') {
+            cameraCount = getValue(device.value);
         }
-        else if (deviceCounts[i].id == 'alarmCount') {
-            var alarmCount = getValue(deviceCounts[i].value);
+        else if (device.id == 'alarmCount') {
+            alarmCount = getValue(device.value);
         }
-        else if (deviceCounts[i].id == 'panelCount') {
-            var panelCount = getValue(deviceCounts[i].value);
+        else if (device.id == 'panelCount') {
+            panelCount = getValue(device.value);
         }
     }
-
     if (readerCount / 16 > panelCount) {
         draftTime += Math.ceil(readerCount / 16);
     }
