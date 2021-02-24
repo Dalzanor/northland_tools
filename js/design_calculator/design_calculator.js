@@ -79,7 +79,7 @@ function hoursFromDevices() {
         draftTime += Math.ceil(readerCount / 16);
     }
     else {
-        draftTime += Math.round(panelCount);
+        draftTime += panelCount;
     }
     if ((Math.ceil(alarmCount / 24) - Math.round(panelCount)) > 0) {
         draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount));
@@ -94,7 +94,7 @@ function getValue(value) {
         return 0;
     }
     else {
-        return value;
+        return parseInt(value);
     }
 }
 
