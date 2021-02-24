@@ -90,11 +90,11 @@ function hoursFromDevices() {
 }
 
 function getValue(value) {
-    if (value == '') {
-        return 0;
+    if (value) {
+        return parseInt(value);
     }
     else {
-        return parseInt(value);
+        return 0;
     }
 }
 
