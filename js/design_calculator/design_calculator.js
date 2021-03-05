@@ -82,10 +82,10 @@ function hoursFromDevices() {
         draftTime += panelCount;
     }
     if ((Math.ceil(alarmCount / 24) - Math.round(panelCount)) > 0) {
-        draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount));
+        draftTime += (Math.ceil(alarmCount / 24) - Math.round(panelCount - 1));
     }
     draftTime += Math.ceil(cameraCount / 24) / 2;
-    draftTime += Math.round((getValue(document.getElementById('floorsInfo').value) * multiplierFromBackground()) * 0.75);
+    draftTime += Math.round((getValue(document.getElementById('floorsInfo').value) * multiplierFromBackground()) * 0.85);
     return draftTime;
 }
 
@@ -154,7 +154,7 @@ function customerType() {
 
 function hoursFromFloorsDesign() {
     let readerCount = getValue(document.getElementById('readerCount').value);
-    return Math.ceil(document.getElementById('floorsInfo').value / 3) + Math.floor(readerCount / 36);
+    return Math.ceil(document.getElementById('floorsInfo').value / 2) + Math.floor(readerCount / 20);
 }
 
 function multiplierFromBackground() {
