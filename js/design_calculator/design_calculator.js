@@ -52,8 +52,9 @@ for (let customer of customers) {
 // Run the calculateHours on all elements with class "calcOnUpdate"
 for (let i = 0; i < document.getElementsByClassName('calcOnUpdate').length; i++) {
     document.getElementsByClassName('calcOnUpdate')[i].onchange = () => {
-        document.getElementById('designHours').textContent = Math.ceil(hoursFromSpecialDesign() * hoursFromDropdownMult() + hoursFromFloorsDesign());
-        document.getElementById('draftHours').textContent = Math.round((hoursFromDevices() + hoursFromSpecialDraft() + hoursFromDropdownDraft()) * customerType());
+        let designHours = Math.ceil(hoursFromSpecialDesign() * hoursFromDropdownMult() + hoursFromFloorsDesign());
+        document.getElementById('designHours').textContent = designHours;
+        document.getElementById('draftHours').textContent = Math.round((hoursFromDevices() + hoursFromSpecialDraft() + hoursFromDropdownDraft()) * customerType() + (designHours / 12));
     }
 }
 
