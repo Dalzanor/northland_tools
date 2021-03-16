@@ -104,7 +104,7 @@ async function addLogo(name) {
       const pngUrl = customers[i].logo;
       const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
       const pngImage = await pdfDoc.embedPng(pngImageBytes);
-      const pngDim = pngImage.scale(0.325);
+      const pngDim = pngImage.scale(customers[i].size);
       firstPage.drawImage(pngImage, {
         x: (firstPage.getWidth() / 2 - pngDim.width / 2),
         y: 555,
@@ -117,21 +117,18 @@ async function addLogo(name) {
   }
 }
 
-
-// sets form input to onchange -> run modifyPDF()
-const update = document.querySelectorAll('.onUpdate');
-for (let node of update) {
-  node.onchange = () => {
-    let input1 = document.querySelector('#lineOne').value;
-    let input2 = document.querySelector('#lineTwo').value;
-    let input3 = document.querySelector('#lineThree').value;
-    modifyPDF(input1, input2, input3);
-  }
-}
-
 // sets form dropdown to onchange -> add logo
 const update2 = document.querySelector('.onUpdate2');
 update2.onchange = () => {
   let input1 = document.querySelector('.onUpdate2').value;
   addLogo(input1);
+}
+
+// sets button input to onclick -> run modifyPDF()
+const update = document.querySelector('div .updatePDF');
+update.onclick = () => {
+  let input1 = document.querySelector('#lineOne').value;
+  let input2 = document.querySelector('#lineTwo').value;
+  let input3 = document.querySelector('#lineThree').value;
+  modifyPDF(input1, input2, input3);
 }
