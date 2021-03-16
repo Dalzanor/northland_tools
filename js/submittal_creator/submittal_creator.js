@@ -14,7 +14,7 @@ import { customers } from "./customers.js";
   
 //   }
 
-//init PDF
+// init PDF
 createPDF();
 
 // Adds all customers to the html form as an option from imported customers.js
@@ -30,8 +30,38 @@ async function createPDF() {
   const pdfDoc = await PDFLib.PDFDocument.create();
   const firstPage = pdfDoc.addPage();
   firstPage.setSize(600,800);
-  writeOnPDF("Prepared By:", 30, 120, pdfDoc);
-  writeOnPDF("Northland Controls", 30, 80, pdfDoc);
+  addBase(pdfDoc);
+}
+
+// Set northland logo and base text at set locations
+async function addBase(doc) {
+  const pdfDoc = doc;
+  const firstPage = pdfDoc.getPages()[0];
+
+  // add logo png
+  const pngUrl = 'https://dalzanor.github.io/northland_tools/assets/logos/logo_northland.png';
+  const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
+  const pngImage = await pdfDoc.embedPng(pngImageBytes);
+  const pngDim = pngImage.scale(0.325);
+  firstPage.drawImage(pngImage, {
+    x: (firstPage.getWidth() / 2 - pngDim.width / 2),
+    y: 200,
+    width: pngDim.width,
+    height: pngDim.height,
+  })
+
+  // add base text
+  const texts = ["Prepared By:", "Northland Controls"];
+  const textHeights = [155, 115];
+  const textSize = 30;
+  const timesRomanFont = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
+  for (let i = 0; i < texts.length; i++) {
+    let textWidth = timesRomanFont.widthOfTextAtSize(texts[i], textSize);
+    let xLocate = (firstPage.getWidth() / 2) - (textWidth / 2);
+    firstPage.moveTo(xLocate, textHeights[i]);
+    firstPage.drawText(texts[i], {size:textSize});
+  }
+  
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   document.getElementById('pdf').src = pdfDataUri;
 }
@@ -65,37 +95,30 @@ async function modifyPDF(line1, line2, line3) {
   document.getElementById('pdf').src = pdfDataUri;
 }
 
-// Write text on a doc with parameters passed in
-async function writeOnPDF(text, textSize, textHeight, doc) {
-  const pdfDoc = doc;
-  const firstPage = pdfDoc.getPages()[0];
-  const { width, height } = firstPage.getSize();
-  const timesRomanFont = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
-  let textWidth = timesRomanFont.widthOfTextAtSize(text, textSize);
-  let xLocate = (width / 2) - (textWidth / 2);
-  firstPage.moveTo(xLocate, textHeight);
-  firstPage.drawText(text, {size:textSize});
-  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  document.getElementById('pdf').src = pdfDataUri;
+// add logo from dropdown
+async function addLogo(name) {
+  for (let i = 0; i < customers.length; i++) {
+    if(name === customers[i].name) {
+      const pdfDoc = await PDFLib.PDFDocument.load(document.getElementById('pdf').src);
+      const firstPage = pdfDoc.getPages()[0];
+      const pngUrl = customers[i].logo;
+      const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
+      const pngImage = await pdfDoc.embedPng(pngImageBytes);
+      const pngDim = pngImage.scale(0.325);
+      firstPage.drawImage(pngImage, {
+        x: (firstPage.getWidth() / 2 - pngDim.width / 2),
+        y: 555,
+        width: pngDim.width,
+        height: pngDim.height,
+      })
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri;
+    }
+  }
 }
 
-// Set image at location 
-async function addImage(img, height, doc) {
-  const pdfDoc = doc;
-  const firstPage = pdfDoc.getPages()[0];
-  const pngImage = await pdfDoc.embedPng('pngImageBytes');
-  const pngDim = pngImage.scale(1.25);
-  firstPage.drawImage(pngImage, {
-    x: (firstPage.getWidth() / 2) - pngDim.width / 2,
-    y: height,
-    width: pngDim.width,
-    height: pngDim.height,
-  })
-  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  document.getElementById('pdf').src = pdfDataUri;
-}
 
-// sets form input to onchange run modifyPDF()
+// sets form input to onchange -> run modifyPDF()
 const update = document.querySelectorAll('.onUpdate');
 for (let node of update) {
   node.onchange = () => {
@@ -106,6 +129,9 @@ for (let node of update) {
   }
 }
 
-const pngUrl = 'https://pdf-lib.js.org/assets/minions_banana_alpha.png';
-const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
-console.log(pngImageBytes);
+// sets form dropdown to onchange -> add logo
+const update2 = document.querySelector('.onUpdate2');
+update2.onchange = () => {
+  let input1 = document.querySelector('.onUpdate2').value;
+  addLogo(input1);
+}
