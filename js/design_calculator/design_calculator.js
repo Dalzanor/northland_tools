@@ -6,7 +6,7 @@ for (let i = 0; i < dropdowns.length; i++) {
         let opt = document.createElement('option');
         opt.value = dropdowns[i][j].name;
         opt.innerHTML = dropdowns[i][j].name;
-        document.getElementsByClassName('dropdownMenu')[i].appendChild(opt);
+        document.querySelector('customerList').appendChild(opt);
     }
 }
 
