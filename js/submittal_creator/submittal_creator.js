@@ -1,18 +1,4 @@
 import { customers } from "./customers.js";
-// function readUrl(input) {
-  
-//     if (input.files && input.files[0]) {
-//       let reader = new FileReader();
-//       reader.onload = (e) => {
-//         let imgData = e.target.result;
-//         let imgName = input.files[0].name;
-//         input.setAttribute("data-title", imgName);
-//         console.log(e.target.result);
-//       }
-//       reader.readAsDataURL(input.files[0]);
-//     }
-  
-//   }
 
 // init PDF
 createPDF();
@@ -117,13 +103,6 @@ async function addLogo(name) {
   }
 }
 
-// sets form dropdown to onchange -> add logo
-const update2 = document.querySelector('.onUpdate2');
-update2.onchange = () => {
-  let input1 = document.querySelector('.onUpdate2').value;
-  addLogo(input1);
-}
-
 // sets button input to onclick -> run modifyPDF()
 const update = document.querySelector('div .updatePDF');
 update.onclick = () => {
@@ -131,4 +110,16 @@ update.onclick = () => {
   let input2 = document.querySelector('#lineTwo').value;
   let input3 = document.querySelector('#lineThree').value;
   modifyPDF(input1, input2, input3);
+}
+
+// sets form dropdown to onchange -> add logo
+const update2 = document.querySelector('.onUpdate2');
+update2.onchange = () => {
+  let input1 = document.querySelector('.onUpdate2').value;
+  addLogo(input1);
+}
+
+const update3 = document.querySelector('.onUpdate3');
+update3.onchange = () => {
+
 }
