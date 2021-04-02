@@ -2,9 +2,7 @@ import { customers } from "./customers.js";
 
 const input = document.querySelector('#inputFile');
 input.addEventListener('change', function(e) {
-  
   callTest();
-  
 }, false)
 
 // init PDF
@@ -110,13 +108,6 @@ async function addLogo(name) {
   }
 }
 
-// sets form dropdown to onchange -> add logo
-const update2 = document.querySelector('.onUpdate2');
-update2.onchange = () => {
-  let input1 = document.querySelector('.onUpdate2').value;
-  addLogo(input1);
-}
-
 // sets button input to onclick -> run modifyPDF()
 const update = document.querySelector('div .updatePDF');
 update.onclick = () => {
@@ -126,19 +117,32 @@ update.onclick = () => {
   modifyPDF(input1, input2, input3);
 }
 
-// async function callTest() {
-//   const pdfDoc = await PDFLib.PDFDocument.load(document.getElementById('pdf').src);
-//   // const inputDoc = await PDFLib.PDFDocument.load();
-//   const url = 'https://dalzanor.github.io/northland_tools/pdf/2600t_12v_dc_under_carpet_water_sensor.pdf';
-//   const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
-//   const inputDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-//   const indices = [...Array(inputDoc.getPageCount()).keys()];
-//   for (let i = 0; i < inputDoc.getPageCount(); i++) {
-//     let [existingPage] = await pdfDoc.copyPages(inputDoc, [0]);
-//     console.log(existingPage);
-//     pdfDoc.insertPage(pdfDoc.getPageCount(), existingPage);
-//   }
+const update2 = document.querySelector('.onUpdate2');
+update2.onchange = () => {
+  let input1 = document.querySelector('.onUpdate2').value;
+  addLogo(input1);
+}
 
-//   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-//   document.getElementById('pdf').src = pdfDataUri;
+// const update3 = document.querySelector('.onUpdate3');
+// update3.onchange = () => {
+
 // }
+
+
+async function callTest() {
+  const pdfDoc = await PDFLib.PDFDocument.load(document.getElementById('pdf').src);
+  // const inputDoc = await PDFLib.PDFDocument.load();
+  const url = 'https://dalzanor.github.io/northland_tools/pdf/2600t_12v_dc_under_carpet_water_sensor.pdf';
+  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+  const inputDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+  const indices = [...Array(inputDoc.getPageCount()).keys()];
+  for (let i = 0; i < inputDoc.getPageCount(); i++) {
+    let [existingPage] = await pdfDoc.copyPages(inputDoc, [0]);
+    console.log(existingPage);
+    pdfDoc.insertPage(pdfDoc.getPageCount(), existingPage);
+  }
+
+  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+  document.getElementById('pdf').src = pdfDataUri;
+}
+sets form dropdown to onchange -> add logo
