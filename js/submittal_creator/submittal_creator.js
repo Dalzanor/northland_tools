@@ -1,5 +1,6 @@
 import { customers } from "./customers.js";
 
+
 const input = document.querySelector('#inputFile');
 input.addEventListener('change', function(e) {
   callTest();
@@ -130,19 +131,24 @@ update2.onchange = () => {
 
 
 async function callTest() {
-  const pdfDoc = await PDFLib.PDFDocument.load(document.getElementById('pdf').src);
-  // const inputDoc = await PDFLib.PDFDocument.load();
+ 
   const url = 'https://dalzanor.github.io/northland_tools/pdf/2600t_12v_dc_under_carpet_water_sensor.pdf';
   const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
-  const inputDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
-  const indices = [...Array(inputDoc.getPageCount()).keys()];
-  for (let i = 0; i < inputDoc.getPageCount(); i++) {
-    let [existingPage] = await pdfDoc.copyPages(inputDoc, [0]);
-    console.log(existingPage);
-    pdfDoc.insertPage(pdfDoc.getPageCount(), existingPage);
+  
+  const cover = await PDFLib.PDFDocument.load(document.getElementById('pdf').src);
+  const content = await PDFLib.PDFDocument.load(existingPdfBytes);
+  const doc = await PDFLib.PDFDocument.create();
+
+  const contentPages1 = await doc.copyPages(cover, cover.getPageIndices());
+  for (const page of contentPages1) {
+    doc.addPage(page);
   }
 
-  const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+  const contentPages2 = await doc.copyPages(content, content.getPageIndices());
+  for (const page of contentPages2) {
+    doc.addPage(page);
+  }
+
+  const pdfDataUri = await doc.saveAsBase64({ dataUri: true });
   document.getElementById('pdf').src = pdfDataUri;
 }
-sets form dropdown to onchange -> add logo
